@@ -1,12 +1,2 @@
+/.daml
 node_modules
-yarn-error.log
-.vscode/
-*.log
-# We use yarn for this project, not npm
-package-lock.json
-**/*/.eslintcache
-
-/tmp/**
-!/tmp/.gitkeep
-
-.env.dev

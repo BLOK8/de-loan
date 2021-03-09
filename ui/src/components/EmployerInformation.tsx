@@ -1,5 +1,6 @@
-import { TextField } from "./uiComponents";
+import { Button, TextField } from "./uiComponents";
 import React from "react";
+import { useAppState } from "./App";
 
 const EmployerInformation = () => {
   const presentEmployerOptions = [
@@ -44,6 +45,8 @@ const EmployerInformation = () => {
       label: "More than 5 years",
     },
   ];
+  //@ts-ignore
+  const [state, setState] = useAppState();
   const [presentEmployer, setPresentEmployer] = React.useState("Yes");
   const [occupation, setOccupation] = React.useState("Private");
   const [employmentPeriod, setEmploymentPeriod] = React.useState("0-1");
@@ -67,6 +70,17 @@ const EmployerInformation = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setEmploymentPeriod(event.target.value);
+  };
+  const onEmployeeDetailsSubmit = () => {
+    setState({
+      ...state,
+      employerInformation: {
+        presentEmployer: presentEmployer,
+        occupation: occupation,
+        employmentPeriod: employmentPeriod,
+        grossMonthlyIncome: grossMonthlyIncome,
+      },
+    });
   };
   return (
     <div>
@@ -132,6 +146,7 @@ const EmployerInformation = () => {
         value={grossMonthlyIncome}
         onChange={handleGrossMonthlyChange}
       />
+      <Button onClick={onEmployeeDetailsSubmit}>Next</Button>
     </div>
   );
 };

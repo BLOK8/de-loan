@@ -1,17 +1,20 @@
-import { TextField } from "./uiComponents";
+import { Button, TextField } from "./uiComponents";
 import React from "react";
+import { useAppState } from "./App";
 
 const LoanDetails = () => {
   const purposes = [
     {
       value: "Personal",
-      label: "Home Loan",
+      label: "Personal Loan",
     },
     {
       value: "Education",
       label: "Education Loan",
     },
   ];
+  //@ts-ignore
+  const [state, setState] = useAppState();
   const [purpose, setPurpose] = React.useState("Personal");
   const [loanAmount, setLoanAmount] = React.useState("");
   const [loanTerm, setLoanTerm] = React.useState("");
@@ -26,6 +29,17 @@ const LoanDetails = () => {
   const handleLoanTermChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoanTerm(event.target.value);
   };
+  const onLoanDetailsSubmit = () => {
+    setState({
+      ...state,
+      loanDetails: {
+        purpose: purpose,
+        loanAmount: loanAmount,
+        loanTerm: loanTerm,
+      },
+    });
+  };
+
   return (
     <div>
       <TextField
@@ -62,6 +76,7 @@ const LoanDetails = () => {
         value={loanTerm}
         onChange={handleLoanTermChange}
       />
+      <Button onClick={onLoanDetailsSubmit}>Next</Button>
     </div>
   );
 };

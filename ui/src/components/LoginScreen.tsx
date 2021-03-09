@@ -56,6 +56,7 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
 
   const handleLogin = async (event: React.FormEvent) => {
     setState({
+      ...state,
       applicant: {
         firstName: username,
       },
@@ -89,12 +90,13 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
   }, [login]);
 
   const responseGoogle = async (response: any) => {
-    setUsername(response.Hs.sd);
+    if (response.Hs !== undefined) {
+      setUsername(response.Hs.sd);
+    }
   };
   return (
     <LoginWrap>
       <LoginContainer>
-        
         <LoginForm>
         <h1> <img width="200" src={Logo} alt="daml" />
         </h1>
@@ -172,7 +174,7 @@ const LoginWrap = styled("div")({
 const LoginContainer = styled("div")({
   maxWidth: 500,
   width: "100%",
-  textAlign: "center"
+  textAlign: "center",
 });
 const LoginForm = styled("div")(({ theme }) => ({
   padding: "22px 24px",
@@ -185,6 +187,6 @@ const LoginForm = styled("div")(({ theme }) => ({
     fontSize: 14,
   },
   "& button + button": {
-    marginTop: 23
-  }
+    marginTop: 23,
+  },
 }));

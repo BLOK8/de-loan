@@ -11,9 +11,20 @@ import { ThemeProviderContainer as Theme } from "../theme";
 import { Snackbar } from "./uiComponents";
 import { BrowserRouter } from "react-router-dom";
 
-const initialState = {
+export const initialState = {
   applicant: {
     firstName: "aa",
+  },
+  loanDetails: {
+    purpose: "Personal",
+    loanAmount: "",
+    loanTerm: "",
+  },
+  employerInformation: {
+    presentEmployer: "Yes",
+    occupation: "Private",
+    employmentPeriod: "0-1",
+    grossMonthlyIncome: "",
   },
 };
 const StateContext = React.createContext({});

@@ -9,22 +9,11 @@ import Credentials from "../Credentials";
 import { httpBaseUrl } from "../config";
 import { ThemeProviderContainer as Theme } from "../theme";
 import { Snackbar } from "./uiComponents";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-export const initialState = {
+const initialState = {
   applicant: {
     firstName: "aa",
-  },
-  loanDetails: {
-    purpose: "Personal",
-    loanAmount: "",
-    loanTerm: "",
-  },
-  employerInformation: {
-    presentEmployer: "Yes",
-    occupation: "Private",
-    employmentPeriod: "0-1",
-    grossMonthlyIncome: "",
   },
 };
 const StateContext = React.createContext({});
@@ -57,24 +46,43 @@ const App: React.FC = () => {
     Credentials | undefined
   >();
 
-  const getLendingPage = () => {
-    return credentials ? (
-      <DamlLedger
-        token={credentials.token}
-        party={credentials.party}
-        httpBaseUrl={httpBaseUrl}
-      >
-        <MainScreen onLogout={() => setCredentials(undefined)} />
-      </DamlLedger>
-    ) : (
-      <LoginScreen onLogin={setCredentials} />
-    );
-  };
   return (
     <Theme>
       <Snackbar maxSnack={6}>
-      <BrowserRouter>
-        <StateProvider>{getLendingPage()}</StateProvider>{" "}
+        <BrowserRouter>
+          <StateProvider>
+            <Switch>
+              <Route
+                path="/login"
+                render={(props) =>
+                  !credentials ? (
+                    <LoginScreen {...props} onLogin={setCredentials} />
+                  ) : (
+                    <Redirect {...props} to="/" />
+                  )
+                }
+              />
+              <Route
+                path="/"
+                render={(props) =>
+                  credentials ? (
+                    <DamlLedger
+                      token={credentials.token}
+                      party={credentials.party}
+                      httpBaseUrl={httpBaseUrl}
+                    >
+                      <MainScreen
+                        {...props}
+                        onLogout={() => setCredentials(undefined)}
+                      />
+                    </DamlLedger>
+                  ) : (
+                    <Redirect {...props} to="/login" />
+                  )
+                }
+              />
+            </Switch>
+          </StateProvider>
         </BrowserRouter>
       </Snackbar>
     </Theme>

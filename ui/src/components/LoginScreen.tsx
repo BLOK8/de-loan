@@ -14,6 +14,8 @@ import {
 } from "../config";
 import { useEffect } from "react";
 import GoogleLogin from "react-google-login";
+import { useAppState } from "./App";
+
 type Props = {
   onLogin: (credentials: Credentials) => void;
 };
@@ -23,6 +25,10 @@ type Props = {
  */
 const LoginScreen: React.FC<Props> = ({ onLogin }) => {
   const [username, setUsername] = React.useState("");
+  //@ts-ignore
+  const [state, setState] = useAppState();
+
+  console.log("hh", state);
 
   const login = useCallback(
     async (credentials: Credentials) => {
@@ -45,6 +51,11 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
   );
 
   const handleLogin = async (event: React.FormEvent) => {
+    setState({
+      applicant: {
+        firstName: username,
+      },
+    });
     event.preventDefault();
     const credentials = computeCredentials(username);
     await login(credentials);
@@ -118,8 +129,8 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
                   placeholder="Username"
                   value={username}
                   className="test-select-username-field"
-                  //onChange={(e) => setUsername(e.currentTarget.value)}
-                  disabled={username === "" ? true : false}
+                  onChange={(e) => setUsername(e.currentTarget.value)} // enabled for initial login
+                  // disabled={username === "" ? true : false}
                 />
                 <Button
                   primary
@@ -151,7 +162,7 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
                   fluid
                   color="google plus"
                   onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
+                  // disabled={true}
                 >
                   Log in via Google
                 </Button>

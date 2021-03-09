@@ -9,8 +9,7 @@ import Credentials from "../Credentials";
 import { httpBaseUrl } from "../config";
 import { ThemeProviderContainer as Theme } from "../theme";
 import { Snackbar } from "./uiComponents";
-import { createBrowserHistory } from "history";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 const initialState = {
   application: {
@@ -60,28 +59,27 @@ const App: React.FC = () => {
   >();
 
   const getLendingPage = () => {
-    return (
-      <Theme>
-        <Snackbar maxSnack={6}>
-          {credentials ? (
-            <DamlLedger
-              token={credentials.token}
-              party={credentials.party}
-              httpBaseUrl={httpBaseUrl}
-            >
-              <Router history={createBrowserHistory()}> <MainScreen onLogout={() => setCredentials(undefined)} />
-              
-              </Router>
-             
-            </DamlLedger>
-          ) : (
-            <LoginScreen onLogin={setCredentials} />
-          )}
-        </Snackbar>
-      </Theme>
+    return credentials ? (
+      <DamlLedger
+        token={credentials.token}
+        party={credentials.party}
+        httpBaseUrl={httpBaseUrl}
+      >
+        <MainScreen onLogout={() => setCredentials(undefined)} />
+      </DamlLedger>
+    ) : (
+      <LoginScreen onLogin={setCredentials} />
     );
   };
-  return <StateProvider>{getLendingPage()}</StateProvider>;
+  return (
+    <Theme>
+      <Snackbar maxSnack={6}>
+      <BrowserRouter>
+        <StateProvider>{getLendingPage()}</StateProvider>{" "}
+        </BrowserRouter>
+      </Snackbar>
+    </Theme>
+  );
 };
 
 // APP_END

@@ -8,6 +8,7 @@ import Ledger from '@daml/ledger';
 import { User } from '@daml.js/create-daml-app';
 import { DeploymentMode, deploymentMode, ledgerId, httpBaseUrl} from '../config';
 import { useEffect } from 'react';
+import {useAppState} from "./App"
 
 type Props = {
   onLogin: (credentials: Credentials) => void;
@@ -17,6 +18,10 @@ type Props = {
  * React component for the login screen of the `App`.
  */
 const LoginScreen: React.FC<Props> = ({onLogin}) => {
+  //@ts-ignore
+const [state,setState] = useAppState();
+
+console.log("hh",state)
   const [username, setUsername] = React.useState('');
 
   const login = useCallback(async (credentials: Credentials) => {
@@ -34,6 +39,9 @@ const LoginScreen: React.FC<Props> = ({onLogin}) => {
   }, [onLogin]);
 
   const handleLogin = async (event: React.FormEvent) => {
+    setState({applicant:{
+      firstName:"ba"
+    }})
     event.preventDefault();
     const credentials = computeCredentials(username);
     await login(credentials);

@@ -9,38 +9,50 @@ import {Route,Router} from "react-router-dom";
 import { ApproverDashboard } from './approver/Dashboard';
 import { createBrowserHistory } from "history";
 import {ContactInfoScreen} from './ContactInfoScreen';
+import { Button } from "semantic-ui-react";
+import { GoogleLogout } from "react-google-login";
 type Props = {
   onLogout: () => void;
-}
+};
 
 /**
  * React component for the main screen of the `App`.
  */
-const MainScreen: React.FC<Props> = ({onLogout}) => {
+const MainScreen: React.FC<Props> = ({ onLogout }) => {
   return (
     <>
       <Menu icon borderless>
         <Menu.Item>
           <Image
-            as='a'
-            href='https://www.daml.com/'
-            target='_blank'
-            src='/daml.svg'
-            alt='DAML Logo'
-            size='mini'
+            as="a"
+            href="https://www.daml.com/"
+            target="_blank"
+            src="/daml.svg"
+            alt="DAML Logo"
+            size="mini"
           />
         </Menu.Item>
-        <Menu.Menu position='right' className='test-select-main-menu'>
-          <Menu.Item position='right'>
+        <Menu.Menu position="right" className="test-select-main-menu">
+          <Menu.Item position="right">
             You are logged in as {useParty()}.
           </Menu.Item>
-          <Menu.Item
+          <GoogleLogout
+            clientId="591508927128-dredtu67nlvlarp64dstg4nbdjq1c146.apps.googleusercontent.com"
+            buttonText="Logout"
+            onLogoutSuccess={onLogout}
+            render={(renderProps) => (
+              <Button basic fluid onClick={renderProps.onClick}>
+                Logout
+              </Button>
+            )}
+          ></GoogleLogout>
+          {/* <Menu.Item
             position='right'
             active={false}
             className='test-select-log-out'
             onClick={onLogout}
             icon='log out'
-          />
+          /> */}
         </Menu.Menu>
       </Menu>
 

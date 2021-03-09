@@ -86,15 +86,8 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
     login({ token, party, ledgerId });
   }, [login]);
 
-  const setLoginusername = async (name: string) => {
-    await setUsername(name);
-  };
   const responseGoogle = async (response: any) => {
-    console.log(username);
-    setLoginusername(response.Hs.sd);
-    console.log(username);
-    // const credentials = computeCredentials(username);
-    // await login(credentials);
+    setUsername(response.Hs.sd);
   };
   return (
     <LoginWrap>

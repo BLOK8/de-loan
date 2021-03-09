@@ -10,7 +10,7 @@ export const Sidebar: React.FC = () => {
     <SidebarWrap className={`side-menu--open-${open}`}>
       <SidebarHeader>{open && ""}</SidebarHeader>
       <Menu>
-        <MenuLink to="/home">
+        <MenuLink to="/approver">
           <DashboardIcon /> {open && "Admin view"}
         </MenuLink>
         {/* <MenuLink  to="/announcements">

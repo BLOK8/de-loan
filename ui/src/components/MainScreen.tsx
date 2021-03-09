@@ -4,6 +4,7 @@
 import React from 'react'
 import MainView from './MainView';
 import { DashboardContainer } from './layouts/DashboardContainer';
+import { Documents } from './Documents';
 
 type Props = {
   onLogout: () => void;
@@ -16,6 +17,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
   return (
     <DashboardContainer onLogout={onLogout}>
       <MainView/>
+      <Documents/>
     </DashboardContainer>
   );
 };

@@ -26,7 +26,14 @@ const initialState = {
     pincode: "",
     typeOfId: "",
     idNumber: "",
+    docs:{
+       "Proof of age and identity":false,
+       "Proof of residence":false,
+       "PAN Card":false,
+      "Proof of Income":false
+    }
   },
+  
 };
 const StateContext = React.createContext({});
 

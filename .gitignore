@@ -1,2 +1,6 @@
 /.daml
 node_modules
+/ui/node_modules
+.history
+ui/daml.js
+sandbox.log

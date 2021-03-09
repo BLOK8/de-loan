@@ -54,6 +54,7 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
 
   const handleLogin = async (event: React.FormEvent) => {
     setState({
+      ...state,
       applicant: {
         firstName: username,
       },
@@ -87,17 +88,18 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
   }, [login]);
 
   const responseGoogle = async (response: any) => {
-    setUsername(response.Hs.sd);
+    if (response.Hs !== undefined) {
+      setUsername(response.Hs.sd);
+    }
   };
   return (
     <LoginWrap>
       <LoginContainer>
-        
         <LoginForm>
-        <h1>
-          {" "}
-          De-Loan via <img width="100" src="/daml.svg" alt="daml" />
-        </h1>
+          <h1>
+            {" "}
+            De-Loan via <img width="100" src="/daml.svg" alt="daml" />
+          </h1>
           {deploymentMode !== DeploymentMode.PROD_DABL ? (
             <>
               {/* FORM_BEGIN */}
@@ -166,7 +168,7 @@ const LoginWrap = styled("div")({
 const LoginContainer = styled("div")({
   maxWidth: 500,
   width: "100%",
-  textAlign: "center"
+  textAlign: "center",
 });
 const LoginForm = styled("div")(({ theme }) => ({
   padding: "22px 24px",
@@ -179,6 +181,6 @@ const LoginForm = styled("div")(({ theme }) => ({
     fontSize: 14,
   },
   "& button + button": {
-    marginTop: 23
-  }
+    marginTop: 23,
+  },
 }));

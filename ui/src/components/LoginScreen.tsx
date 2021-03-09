@@ -167,6 +167,7 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
                   Log in via Google
                 </Button>
               )}
+              isSignedIn={true}
             />
           </Segment>
         </Form>

@@ -9,9 +9,11 @@ import Credentials from "../Credentials";
 import { httpBaseUrl } from "../config";
 import { ThemeProviderContainer as Theme } from "../theme";
 import { Snackbar } from "./uiComponents";
+import { createBrowserHistory } from "history";
+import { Router } from "react-router-dom";
 
 const initialState = {
-  applicant: {
+  application: {
     firstName: "Inital",
     title: "Mr",
     lastName: "Data",
@@ -67,7 +69,10 @@ const App: React.FC = () => {
               party={credentials.party}
               httpBaseUrl={httpBaseUrl}
             >
-              <MainScreen onLogout={() => setCredentials(undefined)} />
+              <Router history={createBrowserHistory()}> <MainScreen onLogout={() => setCredentials(undefined)} />
+              
+              </Router>
+             
             </DamlLedger>
           ) : (
             <LoginScreen onLogin={setCredentials} />

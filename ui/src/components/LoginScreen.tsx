@@ -53,10 +53,10 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
   );
 
   const handleLogin = async (event: React.FormEvent) => {
+    const application = state.application;
     setState({
-      applicant: {
-        firstName: username,
-      },
+      ...state,
+      application:{...application,firstName:username},
     });
     event.preventDefault();
     const credentials = computeCredentials(username);

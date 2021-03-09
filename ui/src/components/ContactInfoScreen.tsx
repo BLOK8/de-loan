@@ -55,7 +55,7 @@ const [state,setState] = useAppState();
                   icon="title"
                   iconPosition="left"
                   placeholder="Title"
-                  value={state.applicant.title}
+                  value={state.application.title}
                   className="test-select-username-field"
                   onChange={(e, data) => setTitle(data.value?.toString() || "")}
                 />
@@ -63,7 +63,7 @@ const [state,setState] = useAppState();
                   icon="first_name"
                   iconPosition="left"
                   placeholder="First Name"
-                  value={state.applicant.firstName}
+                  value={state.application.firstName}
                   className="test-select-username-field"
                   onChange={(e) => setFirstName(e.currentTarget.value)}
                 />
@@ -72,7 +72,7 @@ const [state,setState] = useAppState();
                   icon="last_name"
                   iconPosition="left"
                   placeholder="Last Name"
-                  value={state.applicant.firstName}
+                  value={state.application.lastName}
                   className="test-select-username-field"
                   onChange={(e) => setLastName(e.currentTarget.value)}
                 />

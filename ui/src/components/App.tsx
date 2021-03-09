@@ -12,7 +12,19 @@ import { Snackbar } from "./uiComponents";
 
 const initialState = {
   applicant: {
-    firstName: "aa",
+    firstName: "Inital",
+    title: "Mr",
+    lastName: "Data",
+    birthDate: "",
+    maritalStatus: "",
+    email: "",
+    phoneNumber: "",
+    city: "",
+    state: "",
+    streetAddress: "",
+    pincode: "",
+    typeOfId: "",
+    idNumber: "",
   },
 };
 const StateContext = React.createContext({});

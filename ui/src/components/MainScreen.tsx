@@ -5,7 +5,10 @@ import React from 'react'
 import { Image, Menu } from 'semantic-ui-react'
 import MainView from './MainView';
 import { useParty } from '@daml/react';
-
+import {Route,Router} from "react-router-dom";
+import { ApproverDashboard } from './approver/Dashboard';
+import { createBrowserHistory } from "history";
+import {ContactInfoScreen} from './ContactInfoScreen';
 type Props = {
   onLogout: () => void;
 }
@@ -42,6 +45,11 @@ const MainScreen: React.FC<Props> = ({onLogout}) => {
       </Menu>
 
       <MainView/>
+      <Router history={createBrowserHistory()}>
+      <Route exact path="/approver" component={ApproverDashboard}/>
+      <Route exact path="/application" component={ContactInfoScreen}/>
+      </Router>
+     
     </>
   );
 };

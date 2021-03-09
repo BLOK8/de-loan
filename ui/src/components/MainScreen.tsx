@@ -4,6 +4,7 @@
 import React from "react";
 import MainView from "./MainView";
 import { DashboardContainer } from './layouts/DashboardContainer';
+import { Documents } from './Documents';
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -18,6 +19,7 @@ const MainScreen: React.FC<Props> = ({ onLogout }) => {
   return (
     <DashboardContainer onLogout={onLogout}>
       <MainView/>
+      <Documents/>
     </DashboardContainer>
   );
 };

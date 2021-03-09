@@ -12,9 +12,28 @@ import { Snackbar } from "./uiComponents";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 const initialState = {
-  applicant: {
-    firstName: "aa",
+  application: {
+    firstName: "Inital",
+    title: "Mr",
+    lastName: "Data",
+    birthDate: "",
+    maritalStatus: "",
+    email: "",
+    phoneNumber: "",
+    city: "",
+    state: "",
+    streetAddress: "",
+    pincode: "",
+    typeOfId: "",
+    idNumber: "",
+    docs:{
+       "Proof of age and identity":false,
+       "Proof of residence":false,
+       "PAN Card":false,
+      "Proof of Income":false
+    }
   },
+  
 };
 const StateContext = React.createContext({});
 

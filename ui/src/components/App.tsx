@@ -7,6 +7,8 @@ import MainScreen from "./MainScreen";
 import DamlLedger from "@daml/react";
 import Credentials from "../Credentials";
 import { httpBaseUrl } from "../config";
+import { ThemeProviderContainer as Theme } from "../theme";
+import { Snackbar } from "./uiComponents";
 
 const initialState = {
   applicant: {
@@ -44,16 +46,22 @@ const App: React.FC = () => {
   >();
 
   const getLendingPage = () => {
-    return credentials ? (
-      <DamlLedger
-        token={credentials.token}
-        party={credentials.party}
-        httpBaseUrl={httpBaseUrl}
-      >
-        <MainScreen onLogout={() => setCredentials(undefined)} />
-      </DamlLedger>
-    ) : (
-      <LoginScreen onLogin={setCredentials} />
+    return (
+      <Theme>
+        <Snackbar maxSnack={6}>
+          {credentials ? (
+            <DamlLedger
+              token={credentials.token}
+              party={credentials.party}
+              httpBaseUrl={httpBaseUrl}
+            >
+              <MainScreen onLogout={() => setCredentials(undefined)} />
+            </DamlLedger>
+          ) : (
+            <LoginScreen onLogin={setCredentials} />
+          )}
+        </Snackbar>
+      </Theme>
     );
   };
   return <StateProvider>{getLendingPage()}</StateProvider>;

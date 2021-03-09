@@ -10,6 +10,32 @@ import { httpBaseUrl } from "../config";
 import { ThemeProviderContainer as Theme } from "../theme";
 import { Snackbar } from "./uiComponents";
 
+const initialState = {
+  applicant: {
+    firstName: "aa",
+  },
+};
+const StateContext = React.createContext({});
+
+export const useAppState = () => {
+  const context = React.useContext(StateContext);
+  if (!context) {
+    throw new Error(`useState must be used within a StateProvider`);
+  }
+
+  return context;
+};
+export const StateProvider = (props: any) => {
+  const [state, setState] = React.useState(initialState);
+  const value = React.useMemo(() => [state, setState], [state]);
+
+  return (
+    <StateContext.Provider value={value}>
+      {props.children}
+    </StateContext.Provider>
+  );
+};
+
 /**
  * React component for the entry point into the application.
  */
@@ -19,24 +45,28 @@ const App: React.FC = () => {
     Credentials | undefined
   >();
 
-  return (
-    <Theme>
-      <Snackbar maxSnack={6}>
-        {credentials ? (
-          <DamlLedger
-            token={credentials.token}
-            party={credentials.party}
-            httpBaseUrl={httpBaseUrl}
-          >
-            <MainScreen onLogout={() => setCredentials(undefined)} />
-          </DamlLedger>
-        ) : (
-          <LoginScreen onLogin={setCredentials} />
-        )}
-      </Snackbar>
-    </Theme>
-  );
+  const getLendingPage = () => {
+    return (
+      <Theme>
+        <Snackbar maxSnack={6}>
+          {credentials ? (
+            <DamlLedger
+              token={credentials.token}
+              party={credentials.party}
+              httpBaseUrl={httpBaseUrl}
+            >
+              <MainScreen onLogout={() => setCredentials(undefined)} />
+            </DamlLedger>
+          ) : (
+            <LoginScreen onLogin={setCredentials} />
+          )}
+        </Snackbar>
+      </Theme>
+    );
+  };
+  return <StateProvider>{getLendingPage()}</StateProvider>;
 };
+
 // APP_END
 
 export default App;

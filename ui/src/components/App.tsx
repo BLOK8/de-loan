@@ -10,9 +10,20 @@ import { httpBaseUrl } from "../config";
 import { ThemeProviderContainer as Theme } from "../theme";
 import { Snackbar } from "./uiComponents";
 
-const initialState = {
+export const initialState = {
   applicant: {
     firstName: "aa",
+  },
+  loanDetails: {
+    purpose: "Personal",
+    loanAmount: "",
+    loanTerm: "",
+  },
+  employerInformation: {
+    presentEmployer: "Yes",
+    occupation: "Private",
+    employmentPeriod: "0-1",
+    grossMonthlyIncome: "",
   },
 };
 const StateContext = React.createContext({});

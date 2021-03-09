@@ -11,26 +11,26 @@ export const Sidebar: React.FC = () => {
     <SidebarWrap className={`side-menu--open-${open}`}>
       <SidebarHeader>{open && <img src={logo} alt="" />}</SidebarHeader>
       <Menu>
-        <MenuLink to="/approver">
+        <MenuLink to="/">
           <DashboardIcon /> {open && "Admin view"}
         </MenuLink>
         {/* <MenuLink  to="/announcements">
           <AnnouncementsIcon /> {open && "Announcements"}
         </MenuLink> */}
-        <MenuLink to="/home">
+        {/* <MenuLink to="/home">
           <InvestorIcon /> {open && "Investor Relations"}
+        </MenuLink> */}
+        <MenuLink to="/employer-information">
+          <RegisterIcon /> {open && "Employer information"}
         </MenuLink>
-        <MenuLink to="/home">
-          <RegisterIcon /> {open && "Register"}
-        </MenuLink>
-        <MenuLink to="/home">
+        <MenuLink to="/documents">
           <DocumentsIcon /> {open && "Documents"}
         </MenuLink>
-        <MenuLink to="/home">
-          <ActivityIcon /> {open && "Activity"}
+        <MenuLink to="/contract-info">
+          <ActivityIcon /> {open && "Contract info"}
         </MenuLink>
-        <MenuLink to="/home">
-          <CorporateIcon /> {open && "Company Information"}
+        <MenuLink to="/loan-details">
+          <CorporateIcon /> {open && "loan-details"}
         </MenuLink>
 
         {/* <MenuLink  to="/announcements">

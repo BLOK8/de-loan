@@ -60,7 +60,7 @@ const MainWrap = styled("div")({
   },
 });
 const Main = styled("div")({
-  padding: "0px 40px 20px",
+  padding: "20px 40px 20px",
   width: "100%",
   background: "#fff",
   height: "calc(100vh - 56px)",

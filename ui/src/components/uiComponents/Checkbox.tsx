@@ -43,12 +43,12 @@ export const CheckBoxActiveIcon = styled(({ ...other }) => {
         width="24"
         height="24"
         rx="4"
-        fill={themeType === "light" ? color.primaryInputBorder : color.primary}
+        fill={themeType === "light" ? color.primary : color.primary}
       />
       <rect width="24" height="24" rx="4" fill="black" fillOpacity="0.05" />
       <path
         d="M18.3927 5.60657L9.2203 18.3923L5.60693 14.779"
-        stroke={color.black800}
+        stroke={"#fff"}
         strokeWidth="2"
       />
     </svg>
@@ -72,7 +72,7 @@ export const CheckBoxInActiveIcon = styled(({ ...other }) => {
         height="23"
         rx="3.5"
         stroke={
-          themeType === "light" ? color.primaryInputBorder : color.primaryLight
+          themeType === "light" ? color.primary : color.primaryLight
         }
       />
     </svg>
@@ -95,7 +95,7 @@ const CheckBoxInActiveDisabledIcon = styled(({ ...other }) => (
       rx="3.5"
       fill="#D0D9E2"
       fillOpacity="0.7"
-      stroke={color.primaryLight}
+      stroke={color.primary}
     />
   </svg>
 ))({});
@@ -116,7 +116,7 @@ const CheckBoxActiveDisabledIcon = styled(({ ...other }) => (
       rx="3.5"
       fill="#D0D9E2"
       fillOpacity="0.7"
-      stroke={color.primaryLight}
+      stroke={color.primary}
     />
     <path
       d="M18.3929 5.60657L9.22054 18.3923L5.60718 14.779"

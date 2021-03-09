@@ -148,7 +148,7 @@ const MTextField = withStyles(() => ({
         height: 50,
         padding: "0px 15px 0px",
         boxSizing: "border-box",
-        lineHeight: 50,
+        lineHeight: "50px",
         borderRadius: "4px",
       },
       "& > svg": {

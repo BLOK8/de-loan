@@ -11,11 +11,14 @@ export const Documents: React.FC<Props> = (props) => {
 
   console.log("state",state.application.docs)
   return (
+    <>
+    <h2>Documents</h2>
     <List>
       <ListItem>
       <label>
         <Checkbox
-          color="primary"
+          color="secondary"
+          
         />
         Proof of age and identity
       </label>
@@ -23,7 +26,7 @@ export const Documents: React.FC<Props> = (props) => {
       <ListItem>
       <label>
         <Checkbox
-          color="primary"
+          color="secondary"
           onChange={(e) => {
             console.log("e", e.target.checked);
           }}
@@ -34,7 +37,7 @@ export const Documents: React.FC<Props> = (props) => {
       <ListItem>
       <label>
         <Checkbox
-          color="primary"
+          color="secondary"
           onChange={(e) => {
             console.log("e", e.target.checked);
           }}
@@ -45,7 +48,7 @@ export const Documents: React.FC<Props> = (props) => {
       <ListItem>
       <label>
         <Checkbox
-          color="primary"
+          color="secondary"
           onChange={(e) => {
             console.log("e", e.target.checked);
           }}
@@ -53,9 +56,7 @@ export const Documents: React.FC<Props> = (props) => {
         Proof of Income
       </label>
       </ListItem>
-     
-    
-     
       </List>
+      </>
   );
 };

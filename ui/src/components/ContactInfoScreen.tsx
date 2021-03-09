@@ -1,178 +1,169 @@
 import React, { useState } from "react";
-import { Grid, Header, Form, Segment, Button } from "semantic-ui-react";
 import { deploymentMode, DeploymentMode } from "../config";
 import { useAppState } from "./App";
+import { TextField, Button} from "./uiComponents";
 
-export const ContactInfoScreen = () => {
-  const [title, setTitle] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [maritalStatus, setMaritalStatus] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [city, setCity] = useState("");
-  const [province, setProvince] = useState("");
-  const [streetAddress, setStreetAddress] = useState("");
-  const [pincode, setPincode] = useState("");
-  const [typeOfId, setTypeOfId] = useState("");
-  const [idNumber, setIdNumber] = useState("");
+const titles = [
+  { label: "Mr", value: "mr" },
+  {  label: "Mrs", value: "mrs" },
+  {  label: "Ms", value: "ms" },
+];
+const martialStatuss = [
+  { label: "Married", value: "married" },
+  { label: "Unmarried", value: "unmarried" },
+  {  label: "Divorced", value: "divorced" },
+];
+
+export const ContactInfoScreen:React.FC = () => {
+ 
   const handleDablLogin = () => {};
   const handleSubmit = () => {};
 
-  const titles = [
-    { key: "mr", text: "Mr", value: "mr" },
-    { key: "mrs", text: "Mrs", value: "mrs" },
-    { key: "ms", text: "Ms", value: "ms" },
-  ];
-  const martialStatuss = [
-    { key: "married", text: "Married", value: "married" },
-    { key: "unmarried", text: "Unmarried", value: "unmarried" },
-    { key: "divorced", text: "Divorced", value: "divorced" },
-  ];
+  const [formState, setFormState] = useState({
+    title: "",
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+    maritalStatus: "",
+    email: "",
+    phoneNumber: "",
+    city: "",
+    province: "",
+    streetAddress: "",
+    pincode: "",
+    typeOfId: "",
+    idNumber: ""
+    
+  })
+
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = event.target;
+    
+    setFormState({
+      ...state,
+      [name]: value
+    })
+  }
+  
  //@ts-ignore
 const [state,setState] = useAppState();
   return (
-    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header
-          as="h1"
-          textAlign="center"
-          size="huge"
-          style={{ color: "#223668" }}
-        >
-          <Header.Content>De-Loan via</Header.Content>
-        </Header>
-        <Form size="large" className="test-select-login-screen">
-          <Segment>
+    <>
+      <h2>De-Loan via</h2>
+        <form >
             {deploymentMode !== DeploymentMode.PROD_DABL ? (
               <>
                 {/* FORM_BEGIN */}
-                <Form.Select
-                  compact
+                <TextField
+                  select
                   options={titles}
-                  fluid
-                  icon="title"
-                  iconPosition="left"
-                  placeholder="Title"
-                  value={state.application.title}
-                  className="test-select-username-field"
-                  onChange={(e, data) => setTitle(data.value?.toString() || "")}
+                  value={formState.title}
+                  name="title"
+                  label="Title"
+                  themeType="light"
+                  onChange={onChangeHandler}
                 />
-                <Form.Input
-                  icon="first_name"
-                  iconPosition="left"
+                <TextField
+                  name="firstName"
                   placeholder="First Name"
-                  value={state.application.firstName}
-                  className="test-select-username-field"
-                  onChange={(e) => setFirstName(e.currentTarget.value)}
+                  value={formState.firstName}
+                  label="First Name"
+                  themeType="light"
+                  onChange={onChangeHandler}
                 />
-                <Form.Input
-                  fluid
-                  icon="last_name"
-                  iconPosition="left"
+                <TextField
+                  name="lastName"
+                  themeType="light"
                   placeholder="Last Name"
-                  value={state.application.lastName}
-                  className="test-select-username-field"
-                  onChange={(e) => setLastName(e.currentTarget.value)}
+                  value={formState.lastName}
+                  label="Last Name"
+                  onChange={onChangeHandler}
                 />
-                <Form.Input
-                  fluid
-                  icon="birthdate"
-                  iconPosition="left"
+                <TextField
+                  name="birthDate"
+                  themeType="light"
                   placeholder="Birthdate"
-                  value={birthDate}
-                  className="test-select-username-field"
-                  onChange={(e) => setBirthDate(e.currentTarget.value)}
+                  value={formState.birthDate}
+                  label="Birthdate"
+                  onChange={onChangeHandler}
                 />
-                <Form.Select
+                <TextField
                   options={martialStatuss}
-                  fluid
-                  icon="marital_status"
-                  iconPosition="left"
+                  select
+                  themeType="light"
+                  name="maritalStatus"
                   placeholder="Marital Status"
-                  value={maritalStatus}
-                  className="test-select-username-field"
-                  onChange={(e, data) =>
-                    setMaritalStatus(data.value?.toString() || "")
-                  }
+                  value={formState.maritalStatus}
+                  label="Marital Status"
+                  onChange={onChangeHandler}
+
                 />
-                <Form.Input
-                  fluid
-                  icon="email"
-                  iconPosition="left"
+                <TextField
+                  type="email"
+                  name="email"
+                  themeType="light"
                   placeholder="Email"
-                  value={email}
-                  className="test-select-username-field"
-                  onChange={(e) => setEmail(e.currentTarget.value)}
+                  value={formState.email}
+                  label="Email"
+                  onChange={onChangeHandler}
                 />
-                <Form.Input
-                  fluid
-                  icon="phone_number"
-                  iconPosition="left"
+                <TextField
+                  name="phoneNumber"
+                  themeType="light"
                   placeholder="Phone Number"
-                  value={phoneNumber}
-                  className="test-select-username-field"
-                  onChange={(e) => setPhoneNumber(e.currentTarget.value)}
+                  value={formState.phoneNumber}
+                  label="Phone Number"
+                  onChange={onChangeHandler}
                 />
-                <Form.Input
-                  fluid
-                  icon="city"
-                  iconPosition="left"
+               <TextField
+                  name="city"
+                  themeType="light"
                   placeholder="City"
-                  value={city}
-                  className="test-select-username-field"
-                  onChange={(e) => setCity(e.currentTarget.value)}
+                  value={formState.city}
+                  label="City"
+                  onChange={onChangeHandler}
                 />
-                <Form.Input
-                  fluid
-                  icon="state"
-                  iconPosition="left"
+               <TextField
+                  name="province"
+                  themeType="light"
+                  value={formState.province}
+                  label="State"
+                  onChange={onChangeHandler}
                   placeholder="State"
-                  value={province}
-                  className="test-select-username-field"
-                  onChange={(e) => setProvince(e.currentTarget.value)}
                 />
-                <Form.Input
-                  fluid
-                  icon="street_address"
-                  iconPosition="left"
+               <TextField
+                  name="streetAddress"
+                  themeType="light"
+                  value={formState.streetAddress}
+                  label="Street Address"
+                  onChange={onChangeHandler}
                   placeholder="Street Address"
-                  value={streetAddress}
-                  className="test-select-username-field"
-                  onChange={(e) => setStreetAddress(e.currentTarget.value)}
                 />
-                <Form.Input
-                  fluid
-                  icon="pincode"
-                  iconPosition="left"
+                <TextField
+                  name="streetAddress"
+                  themeType="light"
+                  value={formState.pincode}
+                  label="Pin Code"
+                  onChange={onChangeHandler}
                   placeholder="Pin Code"
-                  value={pincode}
-                  className="test-select-username-field"
-                  onChange={(e) => setPincode(e.currentTarget.value)}
                 />
-                <Form.Input
-                  fluid
-                  icon="type_of_id"
-                  iconPosition="left"
+               <TextField
+                  name="typeOfId"
+                  themeType="light"
+                  value={formState.typeOfId}
+                  label="Type of ID"
+                  onChange={onChangeHandler}
                   placeholder="Type of ID"
-                  value={typeOfId}
-                  className="test-select-username-field"
-                  onChange={(e) => setTypeOfId(e.currentTarget.value)}
                 />
-                <Form.Input
-                  fluid
-                  icon="id_number"
-                  iconPosition="left"
+                <TextField
+                  name="idNumber"
+                  themeType="light"
+                  value={formState.idNumber}
+                  label="ID Number"
+                  onChange={onChangeHandler}
                   placeholder="ID Number"
-                  value={idNumber}
-                  className="test-select-username-field"
-                  onChange={(e) => setIdNumber(e.currentTarget.value)}
                 />
                 <Button
-                  primary
-                  fluid
-                  className="test-select-login-button"
                   onClick={handleSubmit}
                 >
                   Submit
@@ -180,13 +171,11 @@ const [state,setState] = useAppState();
                 {/* FORM_END */}
               </>
             ) : (
-              <Button primary fluid onClick={handleDablLogin}>
+              <Button  onClick={handleDablLogin}>
                 Log in with DABL
               </Button>
             )}
-          </Segment>
-        </Form>
-      </Grid.Column>
-    </Grid>
+        </form>
+    </>
   );
 };

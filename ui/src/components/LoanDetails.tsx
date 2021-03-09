@@ -42,29 +42,19 @@ const LoanDetails = () => {
 
   return (
     <div>
+      <h2>Loan detail</h2>
       <TextField
         themeType="light"
         select
         label="Purpose of loan"
         value={purpose}
         onChange={handlePurposeChange}
-        SelectProps={{
-          native: true,
-        }}
-        helperText="Purpose of loan"
-        variant="outlined"
-      >
-        {purposes.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </TextField>
+        options={purposes}
+      />
       <TextField
         themeType="light"
         id="outlined-basic"
         label="Loan Amount"
-        variant="outlined"
         value={loanAmount}
         onChange={handleLoanAmountChange}
       />
@@ -72,7 +62,6 @@ const LoanDetails = () => {
         themeType="light"
         id="outlined-basic"
         label="Terms(in months)"
-        variant="outlined"
         value={loanTerm}
         onChange={handleLoanTermChange}
       />

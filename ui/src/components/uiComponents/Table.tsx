@@ -37,7 +37,7 @@ export const TableCell = styled(MuiTableCell)({
     flexDirection: "inherit",
   },
   "&:first-child": {
-    paddingLeft: 0,
+    paddingLeft: 10,
   },
   // "&:last-child": {
   //   paddingRight: 0,
@@ -56,7 +56,12 @@ export const TableRow = styled(MuiTableRow)(() => ({
   "&:hover": {
     background: (props: TableRowProps) =>
       props.onClick ? theme.palette.primary.light : "",
+    
     cursor: (props: TableRowProps) => (props.onClick ? "pointer" : ""),
+    "& td": {
+      color: (props: TableRowProps) =>
+      props.onClick ? "#fff" : "",
+    }
   },
   "&.child-row": {
     opacity: 0.6,

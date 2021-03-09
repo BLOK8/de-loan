@@ -7,6 +7,10 @@ import { DashboardContainer } from './layouts/DashboardContainer';
 import { Documents } from './Documents';
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { ApproverDashboard } from "./approver/Dashboard";
+import { ContactInfoScreen } from "./ContactInfoScreen";
+import EmployerInformation from "./EmployerInformation";
+import LoanDetails from "./LoanDetails";
 
 type Props = {
   onLogout: () => void;
@@ -18,8 +22,35 @@ type Props = {
 const MainScreen: React.FC<Props> = ({ onLogout }) => {
   return (
     <DashboardContainer onLogout={onLogout}>
-      <MainView/>
-      <Documents/>
+       <Switch>
+          <Route
+            path="/documents"
+          >
+            <Documents/>
+          </Route>
+         
+          <Route
+            path="/contract-info"
+          >
+            <ContactInfoScreen />
+          </Route>
+          <Route
+            path="/employer-information"
+          >
+            <EmployerInformation/>
+          </Route>
+          <Route
+            path="/loan-details"
+          >
+            <LoanDetails/>
+          </Route>
+          <Route
+            path="/"
+          >
+            <ApproverDashboard/>
+          </Route>
+          <Redirect to="/" />
+        </Switch>
     </DashboardContainer>
   );
 };

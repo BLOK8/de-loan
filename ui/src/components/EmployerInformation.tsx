@@ -84,65 +84,35 @@ const EmployerInformation = () => {
   };
   return (
     <div>
+      <h2>Employer information</h2>
       <TextField
         themeType="light"
         select
         label="Present Employer"
         value={presentEmployer}
         onChange={handlePresentEmployerChange}
-        SelectProps={{
-          native: true,
-        }}
-        helperText="Present Employer"
-        variant="outlined"
-      >
-        {presentEmployerOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </TextField>
+        options={presentEmployerOptions}
+      />
       <TextField
         themeType="light"
         select
         label="Occupation"
         value={occupation}
         onChange={handleOccupationChange}
-        SelectProps={{
-          native: true,
-        }}
-        helperText="Occupation"
-        variant="outlined"
-      >
-        {occupationOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </TextField>
+        options={occupationOptions}
+      />
       <TextField
         themeType="light"
         select
         label="Employment Period"
         value={employmentPeriod}
         onChange={handleEmploymentPeriod}
-        SelectProps={{
-          native: true,
-        }}
-        helperText="Employment Period"
-        variant="outlined"
-      >
-        {employmentPeriodOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </TextField>
+        options={employmentPeriodOptions}
+      />
       <TextField
         themeType="light"
         id="outlined-basic"
         label="Gross monthly income"
-        variant="outlined"
         value={grossMonthlyIncome}
         onChange={handleGrossMonthlyChange}
       />

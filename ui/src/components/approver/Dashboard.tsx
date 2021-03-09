@@ -45,7 +45,9 @@ export const ApproverDashboard: React.FC<Props> = (props) => {
    history.push("application")
   }
   return (
-   <> <Table>
+   <> 
+    <h2>Dashboard</h2>
+   <Table>
         <TableHead>
         <TableCell>Title</TableCell>
         <TableCell>FirstName</TableCell>
@@ -65,3 +67,4 @@ export const ApproverDashboard: React.FC<Props> = (props) => {
     </>
   )
 }
+

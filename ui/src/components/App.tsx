@@ -33,7 +33,18 @@ const initialState = {
       "Proof of Income":false
     }
   },
-  
+  employerInformation: {
+    presentEmployer: "Yes",
+    occupation: "",
+    employmentPeriod: "0-1",
+    grossMonthlyIncome: "",
+  },
+  loanDetails: {
+    purpose: "",
+    loanAmount: "",
+    loanTerm: "",
+    maxLoan: ""
+  },
 };
 const StateContext = React.createContext({});
 

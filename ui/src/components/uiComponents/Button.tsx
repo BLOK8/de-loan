@@ -46,11 +46,11 @@ export const MuiButton = styled(
   "&.MuiButton-outlinedSecondary": {},
 
   "&.MuiButton-containedSecondary": {
-    background: theme.palette.grey[800],
+    background: theme.palette.secondary.main,
     color: color.white,
   },
   "&.MuiButton-containedPrimary": {
-    background: theme.color.primary.main,
+    background: theme.palette.primary.main,
     "&:hover": {
       background: theme.palette.primary.light,
     },

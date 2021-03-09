@@ -81,9 +81,9 @@ export const theme = createMuiTheme({
       black: color.black,
     },
     primary: {
-      light: color.primaryLight,
+      // light: color.primaryLight,
       main: color.primary,
-      dark: color.primaryDark,
+      // dark: color.primaryDark,
     },
     secondary: {
       main: color.secondary,

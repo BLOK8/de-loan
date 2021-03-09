@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useCallback } from "react";
-import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import Credentials, { computeCredentials } from "../Credentials";
 import Ledger from "@daml/ledger";
 import { User } from "@daml.js/create-daml-app";
@@ -15,6 +14,9 @@ import {
 import { useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import { useAppState } from "./App";
+import { TextField, Button } from "./uiComponents";
+import { InputAdornment, styled } from "@material-ui/core";
+import { AccountCircle } from "@material-ui/icons";
 
 type Props = {
   onLogin: (credentials: Credentials) => void;
@@ -95,85 +97,95 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
     // await login(credentials);
   };
   return (
-    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header
-          as="h1"
-          textAlign="center"
-          size="huge"
-          style={{ color: "#223668" }}
-        >
-          <Header.Content>
-            De-Loan via
-            <Image
-              as="a"
-              href="https://www.daml.com/"
-              target="_blank"
-              src="/daml.svg"
-              alt="Daml Logo"
-              spaced
-              size="small"
-              verticalAlign="middle"
-            />
-          </Header.Content>
-        </Header>
-        <Form size="large" className="test-select-login-screen">
-          <Segment>
-            {deploymentMode !== DeploymentMode.PROD_DABL ? (
-              <>
-                {/* FORM_BEGIN */}
-                <Form.Input
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="Username"
-                  value={username}
-                  className="test-select-username-field"
-                  onChange={(e) => setUsername(e.currentTarget.value)} // enabled for initial login
-                  // disabled={username === "" ? true : false}
-                />
-                <Button
-                  primary
-                  fluid
-                  className="test-select-login-button"
-                  onClick={handleLogin}
-                  disabled={username === "" ? true : false}
-                >
-                  Log in
-                </Button>
-                {/* FORM_END */}
-              </>
-            ) : (
-              <Button primary fluid onClick={handleDablLogin}>
-                Log in with DABL
+    <LoginWrap>
+      <LoginContainer>
+        
+        <LoginForm>
+        <h1>
+          {" "}
+          De-Loan via <img width="100" src="/daml.svg" alt="daml" />
+        </h1>
+          {deploymentMode !== DeploymentMode.PROD_DABL ? (
+            <>
+              {/* FORM_BEGIN */}
+              <TextField
+                themeType="light"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.currentTarget.value)} // enabled for initial login
+                // disabled={username === "" ? true : false}
+              />
+              <Button
+                fullWidth
+                onClick={handleLogin}
+                disabled={username === "" ? true : false}
+              >
+                Log in
+              </Button>
+              {/* FORM_END */}
+            </>
+          ) : (
+            <Button fullWidth onClick={handleDablLogin}>
+              Log in with DABL
+            </Button>
+          )}
+          <GoogleLogin
+            clientId="591508927128-dredtu67nlvlarp64dstg4nbdjq1c146.apps.googleusercontent.com"
+            buttonText="Login via Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+            render={(renderProps) => (
+              <Button
+                fullWidth
+                color="secondary"
+                onClick={renderProps.onClick}
+                // disabled={true}
+              >
+                Log in via Google
               </Button>
             )}
-          </Segment>
-          <Segment>
-            <GoogleLogin
-              clientId="591508927128-dredtu67nlvlarp64dstg4nbdjq1c146.apps.googleusercontent.com"
-              buttonText="Login via Google"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={"single_host_origin"}
-              render={(renderProps) => (
-                <Button
-                  secondary
-                  fluid
-                  color="google plus"
-                  onClick={renderProps.onClick}
-                  // disabled={true}
-                >
-                  Log in via Google
-                </Button>
-              )}
-              isSignedIn={true}
-            />
-          </Segment>
-        </Form>
-      </Grid.Column>
-    </Grid>
+            isSignedIn={true}
+          />
+        </LoginForm>
+      </LoginContainer>
+    </LoginWrap>
   );
 };
 
 export default LoginScreen;
+
+const LoginWrap = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  minHeight: "100vh",
+  padding: "50px 0",
+  justifyContent: "center",
+});
+
+const LoginContainer = styled("div")({
+  maxWidth: 500,
+  width: "100%",
+  textAlign: "center"
+});
+const LoginForm = styled("div")(({ theme }) => ({
+  padding: "22px 24px",
+  marginBottom: 12,
+  background: "#fff",
+  border: `1px solid ${theme.palette.grey[500]}`,
+  borderRadius: 6,
+  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+  "& .MuiButton-sizeSmall": {
+    fontSize: 14,
+  },
+  "& button + button": {
+    marginTop: 23
+  }
+}));

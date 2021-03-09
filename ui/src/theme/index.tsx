@@ -22,7 +22,7 @@ const ThemeContext = React.createContext<ThemeContextType | undefined>(
 export const useTheme = () => React.useContext(ThemeContext);
 
 export const ThemeProviderContainer: React.FC<Props> = (props) => {
-  const [themeType, setThemeType] = React.useState<ThemeType>("dark");
+  const [themeType, setThemeType] = React.useState<ThemeType>("light");
 
   const setTheme = (e: ThemeType) => {
     setThemeType(e);

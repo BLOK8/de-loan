@@ -45,11 +45,15 @@ const MTextField = withStyles(() => ({
           ? `${muiTheme.color.disabledText} !important`
           : "",
     },
+    "& .MuiInputAdornment-positionStart": {
+      marginTop: "0 !important"
+    },
     "&.datepicker .input-wrap": {
       flexDirection: "row-reverse",
       "& > input": {
         padding: 0,
       },
+     
       "& .MuiInputAdornment-positionEnd": {
         marginLeft: 0,
         marginRight: 8,
@@ -110,7 +114,7 @@ const MTextField = withStyles(() => ({
       "&.Mui-focused": {
         borderColor: (props: ISelectOptions) =>
           props.themeType === "light"
-            ? muiTheme.color.primary.dark
+            ? muiTheme.palette.secondary.main
             : muiTheme.palette.primary.main,
       },
       "&.Mui-error": {
@@ -118,11 +122,10 @@ const MTextField = withStyles(() => ({
         borderImage: "none",
       },
       background: `${color.white} !important`,
-      fontSize: "12px",
+      fontSize: "14px",
       borderRadius: "4px",
       "& > input": {
-        height: (props: ISelectOptions) =>
-          props.readOnly ? "40px" : props.themeType === "light" ? 38 : 36,
+        height: 50,
         padding: "0px 15px 0px",
         boxSizing: "border-box",
         lineHeight: 1.4,
@@ -142,16 +145,10 @@ const MTextField = withStyles(() => ({
     },
     "& .input-select": {
       "& > div": {
-        height: (props: ISelectOptions) =>
-          props.readOnly ? "40px" : props.themeType === "light" ? 38 : 36,
+        height: 50,
         padding: "0px 15px 0px",
         boxSizing: "border-box",
-        lineHeight: (props: ISelectOptions) =>
-          props.readOnly
-            ? "40px"
-            : props.themeType === "light"
-            ? "38px"
-            : "36px",
+        lineHeight: 50,
         borderRadius: "4px",
       },
       "& > svg": {
@@ -162,7 +159,7 @@ const MTextField = withStyles(() => ({
       },
     },
   },
-}))(({ themeType, options, ...props }: TextFieldProps & ISelectOptions) => {
+}))(({ themeType = "light", options, ...props }: TextFieldProps & ISelectOptions) => {
   const [showPassword, setShowPassword] = React.useState(false);
   if (props.select && options) {
     return (
@@ -222,6 +219,7 @@ const MTextField = withStyles(() => ({
         ...props.inputProps,
         autoComplete: "false",
       }}
+      
       value={props.value || ""}
       type={showPassword ? "text" : props.type}
       InputProps={{
@@ -260,7 +258,7 @@ export const MuiTextField = React.memo(MTextField);
 
 export const StyledOption = styled(MenuItem)(() => ({
   padding: "14px 16px",
-  fontSize: 12,
+  fontSize: 14,
   minWidth: 100,
   "& > img": {
     marginRight: 10,

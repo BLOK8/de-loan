@@ -2,7 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useCallback } from "react";
-import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Icon,
+  Image,
+  Segment,
+} from "semantic-ui-react";
 import Credentials, { computeCredentials } from "../Credentials";
 import Ledger from "@daml/ledger";
 import { User } from "@daml.js/create-daml-app";
@@ -84,15 +92,8 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
     login({ token, party, ledgerId });
   }, [login]);
 
-  const setLoginusername = async (name: string) => {
-    await setUsername(name);
-  };
   const responseGoogle = async (response: any) => {
-    console.log(username);
-    setLoginusername(response.Hs.sd);
-    console.log(username);
-    // const credentials = computeCredentials(username);
-    // await login(credentials);
+    setUsername(response.Hs.sd);
   };
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
@@ -164,6 +165,7 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
                   onClick={renderProps.onClick}
                   // disabled={true}
                 >
+                  <Icon name="google" />
                   Log in via Google
                 </Button>
               )}

@@ -17,6 +17,8 @@ import { useAppState } from "./App";
 import { TextField, Button } from "./uiComponents";
 import { InputAdornment, styled } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
+import appBg from "../images/bg.jpg"
+import Logo from "../images/dark-logo.png"
 
 type Props = {
   onLogin: (credentials: Credentials) => void;
@@ -86,24 +88,15 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
     login({ token, party, ledgerId });
   }, [login]);
 
-  const setLoginusername = async (name: string) => {
-    await setUsername(name);
-  };
   const responseGoogle = async (response: any) => {
-    console.log(username);
-    setLoginusername(response.Hs.sd);
-    console.log(username);
-    // const credentials = computeCredentials(username);
-    // await login(credentials);
+    setUsername(response.Hs.sd);
   };
   return (
     <LoginWrap>
       <LoginContainer>
         
         <LoginForm>
-        <h1>
-          {" "}
-          De-Loan via <img width="100" src="/daml.svg" alt="daml" />
+        <h1> <img width="200" src={Logo} alt="daml" />
         </h1>
           {deploymentMode !== DeploymentMode.PROD_DABL ? (
             <>
@@ -168,6 +161,12 @@ const LoginWrap = styled("div")({
   minHeight: "100vh",
   padding: "50px 0",
   justifyContent: "center",
+  background: `url(${appBg})`,
+  backgroundColor: "#100d1c",
+  backgroundPosition: "30% center",
+  backgroundRepeat: "no-repeat",
+  backgroundBlendMode: "luminosity"
+
 });
 
 const LoginContainer = styled("div")({

@@ -3,12 +3,13 @@ import { styled } from "@material-ui/core";
 import { NavLink, NavLinkProps, useParams } from "react-router-dom";
 import { useSidebarContext } from "../layouts/UseSidebarContext";
 import { color } from "../../theme/Color";
+import logo from "../../images/logo.png"
 
 export const Sidebar: React.FC = () => {
   const { open } = useSidebarContext()!;
   return (
     <SidebarWrap className={`side-menu--open-${open}`}>
-      <SidebarHeader>{open && ""}</SidebarHeader>
+      <SidebarHeader>{open && <img src={logo} alt="" />}</SidebarHeader>
       <Menu>
         <MenuLink to="/home">
           <DashboardIcon /> {open && "Admin view"}
@@ -76,7 +77,7 @@ const SidebarWrap = styled("div")(({ theme }) => ({
 const Menu = styled("ul")({
   listStyle: "none",
   padding: 0,
-  minHeight: "calc(100vh - 320px)",
+  minHeight: "calc(100vh - 150px)",
 });
 
 const MenuLink = styled(({ ...HTMLProps }: NavLinkProps) => (

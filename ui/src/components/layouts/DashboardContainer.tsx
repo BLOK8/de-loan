@@ -50,7 +50,7 @@ const MainWrap = styled("div")({
   "&.side-bar": {
     transition: "all .3s ease-in-out",
     paddingLeft: 256,
-    background: `url(${DashboardBg})`,
+    background: `#100d1c`,
     backgroundSize: "100% 100%",
     backgroundPosition: "top left",
     "&.sidebar-false": {

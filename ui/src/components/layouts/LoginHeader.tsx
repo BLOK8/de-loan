@@ -10,6 +10,7 @@ import { Container, StyledOption } from "../uiComponents";
 import { color } from "../../theme/Color";
 import headerBg from "../../images/headerbg.svg";
 import { useParty } from '@daml/react';
+import { GoogleLogout } from "react-google-login";
 
 interface ILoginHeader {
   className?: string;
@@ -53,6 +54,10 @@ export const LoginHeader: React.FC<ILoginHeader> = ({
     prevOpen.current = open;
   }, [open]);
 
+  const logout = () => {
+    onLogout()
+    setOpen(false);
+  }
 
   return (
     <Header className={className}>
@@ -104,16 +109,20 @@ export const LoginHeader: React.FC<ILoginHeader> = ({
                       >
                         Manage Your Account
                       </StyledOption>
-
-                      <StyledOption
+                      <GoogleLogout
+                      clientId="591508927128-dredtu67nlvlarp64dstg4nbdjq1c146.apps.googleusercontent.com"
+                      buttonText="Logout"
+                      onLogoutSuccess={logout}
+                      render={(renderProps) => (
+                        <StyledOption
                         className="options-light"
-                        onClick={(e) => {
-                          onLogout();
-                          handleClose(e);
-                        }}
+                        onClick={renderProps.onClick}
                       >
                         Sign Out
                       </StyledOption>
+                      )}
+                    ></GoogleLogout>
+                      
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
@@ -132,8 +141,7 @@ export const LoginHeader: React.FC<ILoginHeader> = ({
 
 const Header = styled("div")(({ theme }) => ({
   padding: "10px 27px",
-  background: theme.palette.grey[800],
-  backgroundImage: `url(${headerBg})`,
+  background: "#100d1c",
   backgroundSize: "cover",
   color: color.white,
   "&.header-fixed": {
@@ -181,7 +189,7 @@ const RightMenu = styled(({ ...rest }) => <div {...rest} />)(({ theme }) => ({
   alignItems: "center",
   cursor: "pointer",
   "&.menu-active, &:hover": {
-    color: theme.palette.primary.main,
+    color: "#fff",
   },
   "& button": {
     marginLeft: 10,

@@ -190,10 +190,12 @@ export const theme = createMuiTheme({
         backgroundColor: color.white,
         color: color.black800,
         "&:hover, &:focus, &[data-focus='true']": {
-          backgroundColor: color.primaryLight,
+          backgroundColor: color.primary,
+          color: "#fff"
         },
         "&.Mui-selected": {
           backgroundColor: `${color.primary} !important`,
+          color: "#fff"
         },
       },
     },

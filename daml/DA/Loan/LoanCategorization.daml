@@ -1,0 +1,19 @@
+module DA.Loan.LoanCategorization where
+
+import DA.Loan.Types
+import DA.Next.Set
+
+template LoanCategorization
+  with
+    id : Id
+    loan : Loan
+    assetClass : Text
+    observers : Set Party
+  where
+    signatory id.signatories
+    observer observers
+
+    choice AssetCategorization_SetObservers : ContractId LoanCategorization
+      with newObservers : Set Party
+      controller id.signatories
+      do create this with observers = newObservers

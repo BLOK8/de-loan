@@ -1,0 +1,146 @@
+module DA.Loan.ApplyLoan where
+
+import DA.Loan.Types
+-- import DA.Next.Set
+
+template RequestLoan
+ with
+  deLoan : Party
+  loan : Loan
+  contributors:[Party]
+  observers:[Party]
+ where
+  signatory loan.seeker
+  observer observers,deLoan
+  choice AcceptContract: ContractId RequestLoan
+   with
+    lender:Party
+    lentamount:Decimal
+   controller loan.seeker
+   do
+    assert(loan.amount-lentamount>0.0)
+    create this with deLoan;contributors=lender::contributors;loan=loan with amount=loan.amount-lentamount
+  choice ShowContractToLender: ContractId RequestLoan
+   with
+    newObserver:Party
+   controller deLoan
+   do create this with observers=newObserver::observers
+---------------------------------
+
+template FundLoanProposal
+ with
+  borrower:Party
+  fundLoanSelect:FundLoanSelect
+  loanAgreement:LoanAgreement
+ where
+  signatory fundLoanSelect.lender
+  controller borrower can
+   AcceptProposal : ContractId LoanAgreement
+    do
+     exercise fundLoanSelect.requestLoanCid AcceptContract with lender=fundLoanSelect.lender; lentamount= loanAgreement.amount
+     create loanAgreement
+
+------------------------------------
+
+template FundLoanSelect
+ with
+  requestLoanCid : ContractId RequestLoan
+  deLoan : Party
+  lender : Party
+ where
+  signatory lender
+  observer deLoan
+
+  choice SelectFund : ContractId FundLoanProposal
+   with loanAgreement:LoanAgreement
+   controller lender
+   do
+    requestLoan <- fetch requestLoanCid
+    create FundLoanProposal with borrower=requestLoan.loan.seeker; fundLoanSelect=this;loanAgreement
+
+  -- nonconsuming choice AddLenderToObserver : ContractId RequestLoan
+  --  controller deLoan
+  --  do
+  --   exercise requestLoanCid ShowContractToLender with newObserver=lender
+-------------------------------------------
+template LoanAgreement
+ with
+  borrower:Party
+  lender:Party
+  amount:Decimal
+  interest:Decimal
+ where
+  signatory borrower,lender
+--------------------------------------------- 
+
+---------------------------------------
+-- template IssuedFunds
+--  with
+--   owner:Party
+--   deLoan : Party
+--   amount : Decimal
+--    where
+--     signatory owner
+--     observer deLoan
+--     choice FundLoan : ContractId FundLoanProposal
+--      with
+--       borrower : Party
+--      controller owner
+--      do create FundLoanProposal with borrower;amount;contributor = owner;deLoan
+-- ---------------------------------------
+
+----------------------------------------
+template LoanApproved
+ with
+  lender:Party
+  borrower:Party
+  amount:Decimal
+  deLoan:Party
+ where
+ signatory lender,borrower
+ observer deLoan
+ 
+--------------------------------------
+-- template FundLoanAgreement
+--  with
+--    requestLoan:RequestLoan
+--    issuedFunds : IssuedFunds
+--  where
+--    signatory issuedFunds.owner,requestLoan.loan.seeker
+--    choice TransferFunds : ContractId RequestLoan
+--     controller issuedFunds.owner
+--     do create RequestLoan with deLoan = requestLoan.deLoan ; loan = requestLoan.loan; contributors = issuedFunds.owner::requestLoan.contributors
+    
+
+----------------------------------------
+
+  
+
+--   choice AcceptFunds : ContractId FundLoanAgreement
+
+-- template FundLoanAgreement
+--  with
+--    contributor:Party
+--    seeker:Party
+--    loan:Loan
+--  where
+--    signatory contributor,seeker
+
+--    choice FundLoan : 
+
+-- template FundLoan
+--  with
+--   loan:Loan
+--   amount:Decimal
+--   contributor:Party
+--  where
+--   signatory contributor,loan.seeker
+
+--   choice InitiateFundRequest
+
+-- loan_test= script do
+--  borrower <- allocateParty "borrower"
+--  lender <- allocateParty "lender"
+--  deloan <- allocateParty "deLoan"
+--  submit borrower do
+--   createCmd RequestLoan with deLoan=deloan; loan = Loan with 

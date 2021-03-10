@@ -1,0 +1,29 @@
+module DA.Loan.AddFunds where
+
+    
+    -- choice AddFunds : ContractId IssuedFunds
+    --  with 
+    --   addAmount: Decimal
+    --  controller owner
+    --  do create this with amount=addAmount
+
+    -- choice TransferFunds : ContractId IssuedFunds
+    --  with
+    --   newOwner : Party
+    --  controller contributor
+    --  do create this with owner=newOwner
+    -- choice InitiateFundsTransfer :
+ 
+-- template FundLoanAgreement
+--  with
+--    contributor:Party
+--    seeker:Party
+--    loan:Loan
+--  where
+--    signatory contributor,seeker
+
+-- template AcceptFundsProposal
+--  with
+--   issuedFunds : IssuedFunds
+--  where
+--   signatory issuedFunds.owner

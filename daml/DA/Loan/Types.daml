@@ -1,0 +1,35 @@
+module DA.Loan.Types where
+
+import DA.Next.Set as Set
+import DA.Text
+
+data Id = Id
+ with 
+  signatories : Set Party
+  label : Text
+  version : Int
+ deriving (Eq,Ord)
+
+instance Show Id where
+  show Id{..} = "Sigs(" <> intercalate ";" (map show (Set.toList signatories)) <> ")-" <> label <> "-" <> show version
+
+data Loan = Loan
+ with
+  id: Id
+  amount : Decimal
+  seeker : Party
+  rating: Text
+  duration: Int
+ deriving (Eq,Show)
+
+data UnratedLoan = UnratedLoan
+ with
+  id:Id
+  amount:Decimal
+  seeker: Party
+ deriving (Eq,Show)
+
+data Status  = Status
+ with
+  state: Text
+ deriving (Eq,Show)

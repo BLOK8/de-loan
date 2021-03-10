@@ -1,19 +1,19 @@
--- module DA.Loan.ApplyLoan_old where
+module DA.Loan.ApplyLoan_old where
 
--- import DA.Loan.Types
--- -- import DA.Next.Set
+import DA.Loan.Types
+-- import DA.Next.Set
 
--- template RequestLoan
---  with
---   deLoan : Party
---   loan : Loan
---   lender : Party
---  where
---   signatory loan.seeker
---   observer deLoan,lender
---   nonconsuming choice FundLoan : ContractId FundLoanProposal
---    controller lender
---    do create FundLoanProposal with requestLoan=this;lender;deLoan
+template RequestLoan
+ with
+  deLoan : Party
+  loan : Loan
+  lender : Party
+ where
+  signatory loan.seeker
+  observer deLoan,lender
+  -- nonconsuming choice FundLoan : ContractId FundLoanProposal
+  --  controller lender
+  --  do create FundLoanProposal with requestLoan=this;lender;deLoan
 
 -- ---------------------------------------
 -- -- template IssuedFunds

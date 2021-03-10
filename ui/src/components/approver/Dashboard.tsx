@@ -1,6 +1,8 @@
 import React from "react";
 import history from "../../history";
 import { Table, TableCell, TableHead, TableRow } from "../uiComponents";
+import { useSnackbar } from "notistack";
+import { ApproverModal } from "./Modal";
 
 type Props = {};
 export const ApproverDashboard: React.FC<Props> = (props) => {
@@ -38,11 +40,31 @@ export const ApproverDashboard: React.FC<Props> = (props) => {
       loanAmount:"1111"
     },
   ];
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  const { enqueueSnackbar } = useSnackbar();
+
+
 
   const handleOnRowClick=(eachLoan:any)=>{
     // set application state and route to form
 
-   history.push("application")
+    setModalOpen(true);
+  }
+
+  const modalCloseAction = () => {
+    setModalOpen(false);
+  }
+
+  const modalApproveAction = () => {
+
+    // conditionn if success
+    enqueueSnackbar("Loan approved", { variant: "success" });
+
+    // conditionn if fail
+    // enqueueSnackbar("something went wrong", { variant: "error" });
+    modalCloseAction()
+
   }
   return (
    <> 
@@ -64,6 +86,7 @@ export const ApproverDashboard: React.FC<Props> = (props) => {
           </TableRow>
       })}
     </Table>
+    <ApproverModal open={modalOpen} approvedAction={modalApproveAction} handleClose={modalCloseAction} />
     </>
   )
 }

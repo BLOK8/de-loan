@@ -1,0 +1,93 @@
+module DA.Loan.ApplyLoan_old where
+
+import DA.Loan.Types
+-- import DA.Next.Set
+
+template RequestLoan
+ with
+  deLoan : Party
+  loan : Loan
+  lender : Party
+ where
+  signatory loan.seeker
+  observer deLoan,lender
+  -- nonconsuming choice FundLoan : ContractId FundLoanProposal
+  --  controller lender
+  --  do create FundLoanProposal with requestLoan=this;lender;deLoan
+
+-- ---------------------------------------
+-- -- template IssuedFunds
+-- --  with
+-- --   owner:Party
+-- --   deLoan : Party
+-- --   amount : Decimal
+-- --    where
+-- --     signatory owner
+-- --     observer deLoan
+-- --     choice FundLoan : ContractId FundLoanProposal
+-- --      with
+-- --       borrower : Party
+-- --      controller owner
+-- --      do create FundLoanProposal with borrower;amount;contributor = owner;deLoan
+-- -- ---------------------------------------
+-- template FundLoanProposal
+--  with
+--   requestLoan : RequestLoan
+--   lender : Party
+--   deLoan : Party
+--  where
+--   signatory lender
+--   observer deLoan,requestLoan.loan.seeker
+--   choice AcceptFund : ContractId LoanApproved
+--    controller requestLoan.loan.seeker
+--    do
+--     --archive requestLoan
+--     create LoanApproved with lender=requestLoan.loan.seeker; deLoan;amount=requestLoan.loan.amount ; borrower=requestLoan.loan.seeker
+-- ----------------------------------------
+-- template LoanApproved
+--  with
+--   lender:Party
+--   borrower:Party
+--   amount:Decimal
+--   deLoan:Party
+--  where
+--  signatory lender,borrower
+--  observer deLoan
+ 
+-- --------------------------------------
+-- -- template FundLoanAgreement
+-- --  with
+-- --    requestLoan:RequestLoan
+-- --    issuedFunds : IssuedFunds
+-- --  where
+-- --    signatory issuedFunds.owner,requestLoan.loan.seeker
+-- --    choice TransferFunds : ContractId RequestLoan
+-- --     controller issuedFunds.owner
+-- --     do create RequestLoan with deLoan = requestLoan.deLoan ; loan = requestLoan.loan; contributors = issuedFunds.owner::requestLoan.contributors
+    
+
+-- ----------------------------------------
+
+  
+
+-- --   choice AcceptFunds : ContractId FundLoanAgreement
+
+-- -- template FundLoanAgreement
+-- --  with
+-- --    contributor:Party
+-- --    seeker:Party
+-- --    loan:Loan
+-- --  where
+-- --    signatory contributor,seeker
+
+-- --    choice FundLoan : 
+
+-- -- template FundLoan
+-- --  with
+-- --   loan:Loan
+-- --   amount:Decimal
+-- --   contributor:Party
+-- --  where
+-- --   signatory contributor,loan.seeker
+
+-- --   choice InitiateFundRequest

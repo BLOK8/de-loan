@@ -1,6 +1,7 @@
 import { Button, TextField } from "./uiComponents";
 import React from "react";
 import { useAppState } from "./App";
+import { useSnackbar } from "notistack";
 
 const LoanDetails = () => {
   const purposes = [
@@ -18,6 +19,7 @@ const LoanDetails = () => {
   const [purpose, setPurpose] = React.useState("Personal");
   const [loanAmount, setLoanAmount] = React.useState("");
   const [loanTerm, setLoanTerm] = React.useState("");
+  const { enqueueSnackbar } = useSnackbar();
   const handlePurposeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPurpose(event.target.value);
   };
@@ -38,6 +40,7 @@ const LoanDetails = () => {
         loanTerm: loanTerm,
       },
     });
+    enqueueSnackbar("Loan submitted successfully", { variant: "success" });
   };
 
   return (
@@ -65,7 +68,7 @@ const LoanDetails = () => {
         value={loanTerm}
         onChange={handleLoanTermChange}
       />
-      <Button onClick={onLoanDetailsSubmit}>Next</Button>
+      <Button onClick={onLoanDetailsSubmit}>Submit</Button>
     </div>
   );
 };

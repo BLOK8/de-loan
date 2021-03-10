@@ -1,6 +1,8 @@
 import { Button, TextField } from "./uiComponents";
 import React from "react";
 import { useAppState } from "./App";
+import { useSnackbar } from "notistack";
+import { useHistory } from "react-router";
 
 const EmployerInformation = () => {
   const presentEmployerOptions = [
@@ -45,12 +47,14 @@ const EmployerInformation = () => {
       label: "More than 5 years",
     },
   ];
+  const history = useHistory()
   //@ts-ignore
   const [state, setState] = useAppState();
   const [presentEmployer, setPresentEmployer] = React.useState("Yes");
   const [occupation, setOccupation] = React.useState("Private");
   const [employmentPeriod, setEmploymentPeriod] = React.useState("0-1");
   const [grossMonthlyIncome, setGrossMonthlyIncome] = React.useState("");
+  const { enqueueSnackbar } = useSnackbar();
   const handleGrossMonthlyChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -81,6 +85,8 @@ const EmployerInformation = () => {
         grossMonthlyIncome: grossMonthlyIncome,
       },
     });
+    enqueueSnackbar("Details updated successfully",{ variant: "success" });
+    history.push("/documents");
   };
   return (
     <div>

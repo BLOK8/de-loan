@@ -27,10 +27,10 @@ export const Sidebar: React.FC = () => {
           <DocumentsIcon /> {open && "Documents"}
         </MenuLink>
         <MenuLink to="/contract-info">
-          <ActivityIcon /> {open && "Contract info"}
+          <ActivityIcon /> {open && "Contact info"}
         </MenuLink>
         <MenuLink to="/loan-details">
-          <CorporateIcon /> {open && "loan-details"}
+          <CorporateIcon /> {open && "Request Loan"}
         </MenuLink>
 
         {/* <MenuLink  to="/announcements">

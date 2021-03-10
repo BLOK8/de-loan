@@ -6,8 +6,6 @@ import Credentials, { computeCredentials } from "../Credentials";
 import Ledger from "@daml/ledger";
 import { User } from "@daml.js/create-daml-app";
 import {
-  DeploymentMode,
-  deploymentMode,
   ledgerId,
   httpBaseUrl,
 } from "../config";
@@ -65,12 +63,6 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
     await login(credentials);
   };
 
-  const handleDablLogin = () => {
-    window.location.assign(
-      `https://login.projectdabl.com/auth/login?ledgerId=${ledgerId}`
-    );
-  };
-
   useEffect(() => {
     const url = new URL(window.location.toString());
     const token = url.searchParams.get("token");
@@ -99,7 +91,6 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
         <LoginForm>
         <h1> <img width="200" src={Logo} alt="daml" />
         </h1>
-          {deploymentMode !== DeploymentMode.PROD_DABL ? (
             <>
               {/* FORM_BEGIN */}
               <TextField
@@ -125,11 +116,6 @@ const LoginScreen: React.FC<Props> = ({ onLogin }) => {
               </Button>
               {/* FORM_END */}
             </>
-          ) : (
-            <Button fullWidth onClick={handleDablLogin}>
-              Log in with DABL
-            </Button>
-          )}
           <GoogleLogin
             clientId="591508927128-dredtu67nlvlarp64dstg4nbdjq1c146.apps.googleusercontent.com"
             buttonText="Login via Google"
